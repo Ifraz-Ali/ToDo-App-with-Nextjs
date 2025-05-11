@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import bcrypt from 'bcryptjs';
-import dbConnect from '../../pages/database/connnection/database-connection';
-import User from '../../pages/database/models/User';
+import dbConnect from '../../lib/database/connnection/database-connection';
+import User from '../../lib/database/models/User';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') return res.status(405).json({ message: 'Method not allowed' });

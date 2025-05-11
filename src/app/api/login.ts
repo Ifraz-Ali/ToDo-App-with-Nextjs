@@ -1,7 +1,7 @@
 // pages/api/login.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
-import dbConnect from '../../pages/database/connnection/database-connection';
-import User from '../../pages/database/models/User';
+import dbConnect from '../../lib/database/connnection/database-connection';
+import User from '../../lib/database/models/User';
 import bcrypt from 'bcryptjs';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

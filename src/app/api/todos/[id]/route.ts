@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import dbConnect from '@/pages/database/connnection/database-connection';
-import { Todo } from '@/pages/database/models/Todo';
+import dbConnect from '@/lib/database/connnection/database-connection';
+import { Todo } from '@/lib/database/models/Todo';
 
 // UPDATE a Todo
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
