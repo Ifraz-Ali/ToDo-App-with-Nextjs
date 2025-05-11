@@ -109,16 +109,18 @@ const SignUpForm = () => {
                 />
             </div>
             <div className='h-20 space-y-2'>
-                <label>Gender</label>
-                <div className='flex justify-center'>
-                    <label className='mx-4'>
-                        <input type='radio' name='gender' value='male' onChange={handleChange} />
-                        Male
-                    </label>
-                    <label className='mx-4'>
-                        <input type='radio' name='gender' value='female' onChange={handleChange} />
-                        Female
-                    </label>
+                <div className='flex flex-col justify-center items-center'>
+                    <label className=''>Gender</label>
+                    <div className='flex '>
+                        <label className='mx-4'>
+                            <input type='radio' name='gender' value='male' onChange={handleChange} />
+                            Male
+                        </label>
+                        <label className='mx-4'>
+                            <input type='radio' name='gender' value='female' onChange={handleChange} />
+                            Female
+                        </label>
+                    </div>
                 </div>
             </div>
             <div className='flex justify-center items-center flex-col'>
