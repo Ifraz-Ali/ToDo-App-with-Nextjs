@@ -43,13 +43,23 @@ const SignUpForm = () => {
                 }),
             });
 
-            const data = await res.json();
+            let data = null;
+            const text = await res.text();
+            if (text) {
+                try {
+                    data = JSON.parse(text);
+                } catch (e) {
+                    console.error('Invalid JSON:', e);
+                }
+            }
+
             if (res.ok) {
                 setSuccessMessage('Signup successful!');
                 router.push('/login');
             } else {
-                setErrorMessage(data.message || 'Signup failed.');
+                setErrorMessage(data?.message || 'Signup failed.');
             }
+
         } catch (error) {
             console.log("error signup", error);
             setErrorMessage('An error occurred during signup.');

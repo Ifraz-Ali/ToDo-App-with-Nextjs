@@ -118,7 +118,6 @@ const UITodo: React.FC = () => {
   const getCompleted = () => setFilterTodo(todos.filter((todo) => todo.isComplete));
 
   const handleLogOut = async () => {
-    await fetch("/api/logout");
     router.push("/login");
   };
 
