@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_CONNECTION_URL || 'mongodb://localhost:27017/Todo';
+const MONGODB_URI = 'mongodb://localhost:27017/Todo';
 
 if (!MONGODB_URI) {
   throw new Error('MONGODB_CONNECTION_URL environment variable not set');
