@@ -19,19 +19,20 @@ const SignUpForm = () => {
     const router = useRouter();
 
     const handleSignUp = async () => {
+        // Clear previous messages
+        setAlertMessage('');
+        setErrorMessage('');
+        setSuccessMessage('');
+
+        // Input validation
         if (!userName || !email || !password) {
             setAlertMessage('Please fill in all required fields.');
             return;
         }
-        const user = {
-            userName: userName,
-            email: email,
-            password: password,
-            gender: gender
-        }
-        console.log("user", user);
+
+        setLoading(true);
+
         try {
-            setLoading(true);
             const res = await fetch('/api/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -43,30 +44,35 @@ const SignUpForm = () => {
                 }),
             });
 
-            let data = null;
+            // Read raw text to safely parse response
             const text = await res.text();
-            if (text) {
-                try {
-                    data = JSON.parse(text);
-                } catch (e) {
-                    console.error('Invalid JSON:', e);
-                }
+            let data;
+
+            try {
+                data = JSON.parse(text);
+            } catch (err) {
+                console.error('Failed to parse JSON response:', err);
+                throw new Error('Invalid response from server.');
             }
 
             if (res.ok) {
-                setSuccessMessage('Signup successful!');
-                router.push('/login');
+                setSuccessMessage(data.message || 'Signup successful!');
+                // Wait a moment before redirect to let the user see the message
+                setTimeout(() => router.push('/login'), 1000);
             } else {
-                setErrorMessage(data?.message || 'Signup failed.');
+                // Handle known error messages from API
+                const errorMessage = data?.message || 'Signup failed. Please try again.';
+                setErrorMessage(errorMessage);
             }
 
-        } catch (error) {
-            console.log("error signup", error);
-            setErrorMessage('An error occurred during signup.');
+        } catch (err: any) {
+            console.error('Signup error:', err);
+            setErrorMessage(err.message || 'An unexpected error occurred. Please try again.');
         } finally {
             setLoading(false);
         }
     };
+
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
         if (e.target.checked) {
@@ -75,7 +81,7 @@ const SignUpForm = () => {
     };
 
     return (
-        <div className='h-screen bg-zinc-800 text-white'>
+        <div className='min-h-screen bg-zinc-800 text-white'>
             <div className='flex justify-center'>
                 <h1 className='text-blue-500 text-4xl mt-4 pt-16 font-semibold'>Sign Up</h1>
             </div>
