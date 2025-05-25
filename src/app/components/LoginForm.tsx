@@ -30,15 +30,15 @@ const LoginForm: FC = () => {
       });
 
       const data = await res.json();
-      
-      
-      localStorage.setItem('loginKey', data.userId); // optional, until JWT/session is used
-      setAuthStatus(true);
-      router.push('/todo-list');
+
+
       if (!res.ok) {
         setError(data.message || 'Login failed');
         return;
       }
+      localStorage.setItem('loginKey', data.userId); // optional, until JWT/session is used
+      setAuthStatus(true);
+      router.push('/todo-list');
     } catch (err) {
       setError('Something went wrong. Please try again later.');
     }

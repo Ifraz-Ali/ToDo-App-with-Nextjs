@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = 'mongodb://localhost:27017/Todo';
+const MONGODB_URI = process.env.MONGODB_CONNECTION_URL;
 
 if (!MONGODB_URI) {
   throw new Error('MONGODB_CONNECTION_URL environment variable not set');
@@ -18,14 +18,14 @@ async function dbConnect() {
   }
 
   if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGODB_URI, {
+    cached.promise = mongoose.connect(MONGODB_URI!, {
       serverSelectionTimeoutMS: 60000,
       bufferCommands: false,
     }).then((mongoose) => {
-      console.log('✅ MongoDB connected');
+      console.log('MongoDB connected');
       return mongoose;
     }).catch((err) => {
-      console.error('❌ MongoDB connection error:', err);
+      console.error('MongoDB connection error:', err);
       throw err;
     });
   }

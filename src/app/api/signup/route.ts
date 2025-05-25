@@ -10,11 +10,11 @@ export async function POST(req: NextRequest) {
         if (!username || !email || !password) {
             return NextResponse.json({ message: 'All fields are required.' }, { status: 400 });
         }
-        console.log('📍 Starting signup');
+        console.log('Starting signup');
         await dbConnect();
-        console.log('✅ DB connected');
+        console.log(' DB connected');
         const existingUser = await User.findOne({ email });
-        console.log('🔍 Checked existing user');
+        console.log(' Checked existing user');
 
         if (existingUser) {
             return NextResponse.json({ message: 'Email already in use.' }, { status: 409 });
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
             password: hashedPassword,
             gender,
         });
-        console.log('👤 User created:', newUser);
+        console.log('User created:', newUser);
         return NextResponse.json({ message: 'User created successfully.', user: newUser }, { status: 201 });
 
     } catch (error) {
